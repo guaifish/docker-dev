@@ -6,4 +6,4 @@ docker run -td ^
     -v golang:/go ^
     -v containers-root:/root ^
     -w /app ^
-    guaifish/goproxy:1.15
+    golang:1.15
