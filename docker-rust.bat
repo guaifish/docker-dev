@@ -1,19 +1,17 @@
 @echo off
 
+for %%i in (.) do set dir=%%~ni
+
 if %1 == . (
-    for %%i in (.) do set dir=%%~ni
-    set container_name=%dir%
-    set volume_path=%cd%
+    set workdir=/app/%dir%
 ) else (
-    set container_name=%1
-    set volume_path=%cd%/%1
+    set workdir=/app
 )
 
 docker run -td ^
-    --name %container_name% ^
-    -v %volume_path%:/app/%container_name% ^
+    --name %dir% ^
+    -v %cd%:%workdir% ^
     -v cargo:/usr/local/cargo ^
     -v containers-root:/root ^
-    -w /app ^
+    -w %workdir% ^
     rust
-    cargo init %container_name%
